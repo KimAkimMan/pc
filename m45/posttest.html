@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Gaji</title>
+    <script>
+        function hitungGaji() {
+            const golongan = document.getElementById("golongan").value;
+            const jumlahAnak = parseInt(document.getElementById("anak").value) || 0;
+            let gajiPokok;
+            let persenTunjangan;
+
+            switch (golongan) {
+                case "I":
+                    gajiPokok = 250000;
+                    persenTunjangan = 0.05;
+                    break;
+                case "II":
+                    gajiPokok = 300000;
+                    persenTunjangan = 0.10;
+                    break;
+                case "III":
+                    gajiPokok = 350000;
+                    persenTunjangan = 0.15;
+                    break;
+                default:
+                    gajiPokok = 0;
+                    persenTunjangan = 0;
+                    break;
+            }
+
+
+            const tunjanganAnak = (jumlahAnak * gajiPokok) * persenTunjangan;
+            const tunjangan = tunjanganAnak;
+            
+
+            const gajiBersih = gajiPokok + tunjangan;
+
+            document.getElementById("gajiPokok").value = gajiPokok;
+            document.getElementById("tunjangan").value = tunjangan;
+            document.getElementById("gajiBersih").value = gajiBersih;
+        }
+
+        function resetForm() {
+            document.getElementById("formGaji").reset();
+            document.getElementById("gajiPokok").value = "";
+            document.getElementById("tunjangan").value = "";
+            document.getElementById("gajiBersih").value = "";
+        }
+    </script>
+</head>
+<body>
+    <h2>Perhitungan Gaji</h2>
+    <form id="formGaji">
+        <label for="golongan">Golongan:</label>
+        <select id="golongan" name="golongan">
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+        </select><br><br>
+
+        <label for="anak">Jumlah Anak:</label>
+        <input type="text" id="anak" name="anak" size="10" maxlength="10"><br><br>
+
+        <label for="gajiPokok">Gaji Pokok:</label>
+        <input type="text" id="gajiPokok" name="gajiPokok" readonly><br><br>
+
+        <label for="tunjangan">Tunjangan :</label>
+        <input type="text" id="tunjangan" name="tunjangan" readonly><br><br>
+
+        <label for="gajiBersih">Gaji Bersih:</label>
+        <input type="text" id="gajiBersih" name="gajiBersih" readonly><br><br>
+
+        <button type="button" onclick="hitungGaji()">Hitung</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+</body>
+</html>

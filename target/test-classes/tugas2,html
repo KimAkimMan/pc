@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Hotel</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; }
+    header, footer { background-color: #333; color: white; text-align: center; padding: 10px; }
+    nav { background-color: #444; padding: 10px; }
+    nav ul { list-style-type: none; padding: 0; }
+    nav ul li { display: inline; margin-right: 15px; }
+    nav ul li a { color: white; text-decoration: none; }
+    .container { display: flex; }
+    .leftbar { width: 30%; padding: 10px; }
+    .content { width: 70%; padding: 10px; }
+    .leftbar iframe { width: 100%; height: 200px; }
+    .content img { width: 100%; height: auto; margin-bottom: 10px; }
+    .image-size { 
+        width: 70%;
+        max-width: 250px;
+        height: auto;
+    }
+    footer { background-color: #333; padding: 20px; color: white; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Best Hotel</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#home">Beranda</a></li>
+      <li><a href="#kamar">Kamar</a></li>
+      <li><a href="#fasilitas">Fasilitas</a></li>
+      <li><a href="#pesan">Pesan Sekarang</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <aside class="leftbar">
+      <h2>Video Tour</h2>
+      <iframe width="250" height="150" src="https://www.youtube.com/embed/samplevideo1" frameborder="0" allowfullscreen></iframe>
+      <iframe width="250" height="150" src="https://www.youtube.com/embed/samplevideo2" frameborder="0" allowfullscreen></iframe>
+      <iframe width="250" height="150" src="https://www.youtube.com/embed/samplevideo3" frameborder="0" allowfullscreen></iframe>
+    </aside>
+
+    <section class="content">
+      <h2 id="kamar">Daftar Kamar</h2>
+      <div class="room-gallery">
+        <img src="data:image/jpeg;base64,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" alt="Kamar 1" class="image-size">
+        
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2024 Best Hotel. All rights reserved.</p>
+  </footer>
+</body>
+</html>

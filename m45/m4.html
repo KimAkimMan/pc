@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVA SCRIPT DIALOG</title>
+
+    <script>
+        function pesan(){
+            alert("pemograman web1");
+        }
+        function cekStatus(){
+            const hasil = confirm("apakah anda mahasiswa uniku?");
+            if(hasil){
+                console.log("silahkan mengakses materi yang telah disediakan");
+            }else{
+                console.log("anda tidak bisa mengakses");
+            }
+        }
+        function input(){
+            const userInput = prompt("masukan nama anda");
+            if(userInput !== null){
+                console.log("nama pengguna adalah " + userInput);
+            }else{
+                console.log("pengguna membatalkan input");
+            }
+        }
+    </script>
+</head>
+<body>
+    <hi>javaScript</hi>
+    <button onclick="pesan()">pesan</button>
+    <button onclick="cekStatus()">KONFIRMASI</button>
+    <button onclick="input()">MASUKAN</button>
+</body>
+</html>

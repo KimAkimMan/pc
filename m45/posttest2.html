@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota Penjualan</title>
+    <script>
+        // Data barang
+        const barangData = {
+            "B001": { nama: "Buku", harga: 5000 },
+            "B002": { nama: "Penggaris", harga: 1500 },
+            "B003": { nama: "Pulpen", harga: 2000 }
+        };
+
+        function updateNamaHarga() {
+            const kodeBarang = document.getElementById("kodeBarang").value;
+            const jumlahBeli = parseInt(document.getElementById("jumlahBeli").value) || 0;
+
+            if (barangData[kodeBarang]) {
+                // Update nama dan harga berdasarkan kode barang
+                document.getElementById("namaBarang").value = barangData[kodeBarang].nama;
+                document.getElementById("harga").value = barangData[kodeBarang].harga;
+
+                // Hitung jumlah bayar
+                const jumlahBayar = barangData[kodeBarang].harga * jumlahBeli;
+                document.getElementById("jumlahBayar").value = jumlahBayar;
+
+                // Hitung potongan
+                let persenPotongan = 0;
+                if (jumlahBeli > 21) {
+                    persenPotongan = 15;
+                } else if (jumlahBeli >= 11) {
+                    persenPotongan = 10;
+                } else if (jumlahBeli >= 0) {
+                    persenPotongan = 5;
+                }
+
+                const potongan = (persenPotongan / 100) * jumlahBayar;
+                document.getElementById("potongan").value = potongan;
+
+                // Hitung total bayar
+                const totalBayar = jumlahBayar - potongan;
+                document.getElementById("totalBayar").value = totalBayar;
+            } else {
+                // Reset fields jika kode barang tidak valid
+                document.getElementById("namaBarang").value = "";
+                document.getElementById("harga").value = "";
+                document.getElementById("jumlahBayar").value = "";
+                document.getElementById("potongan").value = "";
+                document.getElementById("totalBayar").value = "";
+            }
+        }
+
+        function tampilkanStruk() {
+            const kodeBarang = document.getElementById("kodeBarang").value;
+            const namaBarang = document.getElementById("namaBarang").value;
+            const harga = document.getElementById("harga").value;
+            const jumlahBeli = document.getElementById("jumlahBeli").value;
+            const jumlahBayar = document.getElementById("jumlahBayar").value;
+            const potongan = document.getElementById("potongan").value;
+            const totalBayar = document.getElementById("totalBayar").value;
+
+            if (kodeBarang && namaBarang && jumlahBeli > 0) {
+                alert(`Struk Belanja:\nKode Barang: ${kodeBarang}\nNama Barang: ${namaBarang}\nHarga: Rp${harga}\nJumlah Beli: ${jumlahBeli}\nJumlah Bayar: Rp${jumlahBayar}\nPotongan: Rp${potongan}\nTotal Bayar: Rp${totalBayar}`);
+            } else {
+                alert("Lengkapi data barang dan jumlah beli sebelum menampilkan struk.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Data Penjualan Barang</h2>
+    <form>
+        <label for="kodeBarang">Kode:</label>
+        <select id="kodeBarang" onchange="updateNamaHarga()">
+            <option value="">--Pilih Salah Satu--</option>
+            <option value="B001">B001</option>
+            <option value="B002">B002</option>
+            <option value="B003">B003</option>
+        </select><br><br>
+
+        <label for="jumlahBeli">Jumlah Beli:</label>
+        <input type="number" id="jumlahBeli" value="0" oninput="updateNamaHarga()"><br><br>
+
+        <label for="namaBarang">Nama Barang:</label>
+        <input type="text" id="namaBarang" readonly><br><br>
+
+        <label for="harga">Harga:</label>
+        <input type="text" id="harga" readonly><br><br>
+
+        <label for="jumlahBayar">Jumlah Bayar:</label>
+        <input type="text" id="jumlahBayar" readonly><br><br>
+
+        <label for="potongan">Potongan:</label>
+        <input type="text" id="potongan" readonly><br><br>
+
+        <label for="totalBayar">Total Bayar:</label>
+        <input type="text" id="totalBayar" readonly><br><br>
+
+        <button type="button" onclick="tampilkanStruk()">TAMPILKAN</button>
+    </form>
+</body>
+</html>

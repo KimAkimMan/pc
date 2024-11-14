@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan</title>
+    <script>
+        function updateHarga() {
+            const tipeKamar = document.getElementById("tipeKamar").value;
+            if (tipeKamar) {
+                document.getElementById("harga").value = tipeKamar.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            } else {
+                document.getElementById("harga").value = "";
+                document.getElementById("totalBayar").value = "";
+            }
+            hitungTotal();
+        }
+
+        function hitungTotal() {
+            const harga = parseInt(document.getElementById("harga").value.replace(/\./g, '')) || 0;
+            const durasi = parseInt(document.getElementById("durasiMenginap").value) || 0;
+            const breakfast = document.getElementById("breakfast").checked;
+            const biayaBreakfast = breakfast ? 80000 : 0;
+            let totalBayar = (harga + biayaBreakfast) * durasi;
+
+            if (durasi > 3) {
+                totalBayar *= 0.9;
+            }
+
+            document.getElementById("totalBayar").value = totalBayar.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            document.getElementById("outputBreakfast").textContent = breakfast ? "Ya" : "Tidak";
+        }
+
+        function simpanPemesanan() {
+            const nama = document.getElementById("namaPemesanan").value;
+            const nomorIdentitas = document.getElementById("nomorIdentitas").value;
+            const jenisKelamin = document.querySelector('input[name="jenisKelamin"]:checked').value;
+            const tipeKamar = document.getElementById("tipeKamar").options[document.getElementById("tipeKamar").selectedIndex].text;
+            const durasi = document.getElementById("durasiMenginap").value;
+            const totalBayar = document.getElementById("totalBayar").value;
+            const diskon = (durasi > 3) ? "10%" : "Tidak Ada";
+
+           
+            let resume = `
+                <h2>Resume Pemesanan</h2>
+                <p>Nama Pemesan: ${nama}</p>
+                <p>Nomor Identitas: ${nomorIdentitas}</p>
+                <p>Jenis Kelamin: ${jenisKelamin}</p>
+                <p>Tipe Kamar: ${tipeKamar}</p>
+                <p>Durasi Penginapan: ${durasi} hari</p>
+                <p>Diskon: ${diskon}</p>
+                <p>Total Bayar: Rp${totalBayar}</p>
+            `;
+            document.getElementById("resume").innerHTML = resume;
+        }
+    </script>
+</head>
+<body>
+    <h1>FORM PEMESANAN</h1>
+    <form>
+        <table>
+            <tr>
+                <td><label for="idPemesanan">ID PEMESANAN:</label></td>
+                <td><input type="number" id="idPemesanan" name="idPemesanan" required /></td>
+            </tr>
+            <tr>
+                <td><label for="namaPemesanan">NAMA PEMESAN:</label></td>
+                <td><input type="text" id="namaPemesanan" name="namaPemesanan" maxlength="35" minlength="5" required /></td>
+            </tr>
+            <tr>
+                <td><label for="nomorIdentitas">NOMOR IDENTITAS:</label></td>
+                <td><input type="text" id="nomorIdentitas" name="nomorIdentitas" maxlength="20" minlength="5" pattern="(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#])" required /></td>
+            </tr>
+            <tr>
+                <td><label for="jenisKelamin">JENIS KELAMIN:</label></td>
+                <td>
+                    <input type="radio" id="jenisKelaminL" name="jenisKelamin" value="Laki-laki" required /> Laki-laki
+                    <input type="radio" id="jenisKelaminP" name="jenisKelamin" value="Perempuan" required /> Perempuan
+                </td>
+            </tr>
+            <tr>
+                <td><label for="tipeKamar">PILIH TIPE KAMAR:</label></td>
+                <td>
+                    <select id="tipeKamar" name="tipeKamar" onchange="updateHarga()">
+                        <option value="">--pilih salah satu--</option>
+                        <option value="1000000">STANDAR - Rp1.000.000</option>
+                        <option value="2000000">DELUXE - Rp2.000.000</option>
+                        <option value="3000000">FAMILY - Rp3.000.000</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="harga">HARGA:</label></td>
+                <td><input type="text" id="harga" readonly /></td>
+            </tr>
+            <tr>
+                <td><label for="tanggalPesan">TANGGAL PESAN:</label></td>
+                <td><input type="date" id="tanggalPesan" name="tanggalPesan" required /></td>
+            </tr>
+            <tr>
+                <td><label for="durasiMenginap">DURASI MENGINAP (hari):</label></td>
+                <td><input type="number" id="durasiMenginap" name="durasiMenginap" min="1" onchange="hitungTotal()" required /></td>
+            </tr>
+            <tr>
+                <td><label for="breakfast">TERMASUK SARAPAN:</label></td>
+                <td>
+                    <input type="checkbox" id="breakfast" name="breakfast" onchange="hitungTotal()" />
+                    <span id="outputBreakfast">Ya</span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="totalBayar">TOTAL BAYAR:</label></td>
+                <td><input type="text" id="totalBayar" readonly /></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <button type="button" onclick="simpanPemesanan()">SIMPAN</button>
+                    <button type="reset" onclick="document.getElementById('outputBreakfast').textContent = 'Tidak';">BATAL</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <div id="resume"></div> 
+</body>
+</html>

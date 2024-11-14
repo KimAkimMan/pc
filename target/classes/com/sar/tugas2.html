@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Data Kamar dan Fasilitas</title>
+    <style>
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            width: 150px;
+            margin-right: 10px;
+        }
+        .form-group input,
+        .form-group textarea {
+            flex: 1;
+            padding: 5px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .submit-btn {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Form Tambah Data Kamar</h2>
+        <form action="/submit_kamar" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="id_kamar">ID Kamar:</label>
+                <input type="text" id="id_kamar" name="id_kamar" required>
+            </div>
+            <div class="form-group">
+                <label for="gambar_ruangan">Gambar Ruangan:</label>
+                <figure>
+                    <img src="data:image/jpeg;base64,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" alt="Gambar Ruangan" style="max-width: 120px;">
+                </figure>
+            </div>
+            <div class="form-group">
+                <label for="jenis_kamar">Jenis Kamar:</label>
+                <input type="text" id="jenis_kamar" name="jenis_kamar" required>
+            </div>
+            <div class="form-group">
+                <label for="harga">Harga:</label>
+                <input type="number" id="harga" name="harga" required>
+            </div>
+            <div class="form-group">
+                <label for="fasilitas">Fasilitas:</label>
+                <textarea id="fasilitas" name="fasilitas" rows="2" placeholder="Contoh: Wi-Fi, AC, TV, dll."></textarea>
+            </div>
+            <div class="submit-btn">
+                <input type="submit" value="Tambah Data Kamar">
+            </div>
+        </form>
+
+        <h2>Form Tambah Data Fasilitas</h2>
+        <form action="/submit_fasilitas" method="post">
+            <div class="form-group">
+                <label for="id_fasilitas">ID Fasilitas:</label>
+                <input type="text" id="id_fasilitas" name="id_fasilitas" required>
+            </div>
+            <div class="form-group">
+                <label for="nama_fasilitas">Nama Fasilitas:</label>
+                <input type="text" id="nama_fasilitas" name="nama_fasilitas" required>
+            </div>
+            <div class="form-group">
+                <label for="harga_weekend">Harga Weekend:</label>
+                <input type="number" id="harga_weekend" name="harga_weekend" required>
+            </div>
+            <div class="form-group">
+                <label for="harga_weekday">Harga Weekday:</label>
+                <input type="number" id="harga_weekday" name="harga_weekday" required>
+            </div>
+            <div class="form-group">
+                <label for="kuota">Kuota:</label>
+                <input type="number" id="kuota" name="kuota" required>
+            </div>
+            <div class="form-group">
+                <label for="jam_buka">Jam Buka:</label>
+                <input type="time" id="jam_buka" name="jam_buka" required>
+            </div>
+            <div class="form-group">
+                <label for="jam_tutup">Jam Tutup:</label>
+                <input type="time" id="jam_tutup" name="jam_tutup" required>
+            </div>
+            <div class="submit-btn">
+                <input type="submit" value="Tambah Data Fasilitas">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
